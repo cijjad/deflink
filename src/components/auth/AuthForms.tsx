@@ -31,7 +31,7 @@ export function LoginForm({ next, reason }: { next?: string; reason?: string }) 
         const r = await postJson("/api/auth/login", { email, password });
         setBusy(false);
         if (!r.ok) return setError(r.data?.error?.message ?? "Sign-in failed.");
-        const dest = safeNext(next);
+        const dest = next ? safeNext(next) : (r.data.home as string | undefined) ?? "/";
         if (r.data.mfaRequired) router.push(`/mfa?next=${encodeURIComponent(dest)}`);
         else {
           router.push(dest);

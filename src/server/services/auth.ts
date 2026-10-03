@@ -71,7 +71,8 @@ export async function login(email: string, password: string, meta: { ip: string;
   await createSession(user.id, { mfaPassed: !user.mfaEnabled, ip: meta.ip, userAgent: meta.userAgent });
   await db.update(users).set({ lastLoginAt: new Date() }).where(eq(users.id, user.id));
   await db.transaction((tx) => audit(tx, { actorUserId: user.id, organizationId: user.organizationId, action: "auth.login", entityType: "user", entityId: user.id, ip: meta.ip }));
-  return { mfaRequired: user.mfaEnabled };
+  const home = org?.kind === "SUPPLIER" ? "/supplier" : org?.kind === "PLATFORM" ? "/admin" : "/";
+  return { mfaRequired: user.mfaEnabled, home };
 }
 
 export async function verifyMfaLogin(session: NonNullable<CurrentUser>, code: string, ip: string) {

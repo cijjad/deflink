@@ -33,8 +33,8 @@ export function QuoteForm({ rfqId, lines, previous, defaultValidUntil }: { rfqId
   const [head, setHead] = useState({
     currency: previous?.currency ?? "USD",
     incoterm: previous?.incoterm ?? "",
-    freight: previous?.freight ?? "",
-    insurance: previous?.insurance ?? "",
+    freight: previous?.freight ? String(Number(previous.freight)) : "",
+    insurance: previous?.insurance ? String(Number(previous.insurance)) : "",
     paymentTerms: previous?.paymentTerms ?? "",
     validUntil: previous?.validUntil ?? defaultValidUntil,
     remarks: previous?.remarks ?? "",
@@ -46,8 +46,8 @@ export function QuoteForm({ rfqId, lines, previous, defaultValidUntil }: { rfqId
       return {
         rfqLineId: l.id,
         include: Boolean(p) || !previous,
-        unitPrice: p?.unitPrice ?? "",
-        quantity: p?.quantity ?? l.quantity,
+        unitPrice: p ? String(Number(p.unitPrice)) : "",
+        quantity: String(Number(p?.quantity ?? l.quantity)),
         availability: p?.availability ?? "IN_STOCK",
         leadTimeDays: String(p?.leadTimeDays ?? ""),
         condition: p?.condition ?? (l.condition === "ANY" || l.condition === "NEW_OR_APPROVED_ALTERNATIVE" ? "NEW" : l.condition),
