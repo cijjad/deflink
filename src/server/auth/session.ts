@@ -73,8 +73,11 @@ async function loadSession(token: string) {
   if (now.getTime() - row.session.lastSeenAt.getTime() > 60_000) {
     await db.update(sessions).set({ lastSeenAt: now }).where(eq(sessions.tokenHash, row.session.tokenHash));
   }
-  const { passwordHash: _ph, mfaSecret: _ms, ...safeUser } = row.user;
-  return { user: safeUser, org: row.org, mfaPassed: row.session.mfaPassed, tokenHash: row.session.tokenHash };
+  // Never let credential material leave this module.
+  const safeUser = { ...row.user } as Partial<typeof row.user>;
+  delete safeUser.passwordHash;
+  delete safeUser.mfaSecret;
+  return { user: safeUser as Omit<typeof row.user, "passwordHash" | "mfaSecret">, org: row.org, mfaPassed: row.session.mfaPassed, tokenHash: row.session.tokenHash };
 }
 
 /** The signed-in user, or null. Sessions awaiting an MFA code are treated as signed out. */

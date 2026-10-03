@@ -10,6 +10,8 @@ const schema = z.object({
     .transform((v) => v === "true"),
   APP_URL: z.string().url().default("http://localhost:3000"),
   STORAGE_DIR: z.string().default("./.storage"),
+  /** 32 random bytes, base64. Encrypts MFA secrets at rest. Required in production. */
+  APP_ENCRYPTION_KEY: z.string().optional(),
   /** Optional. When unset, the deterministic rules extractor is used. */
   ANTHROPIC_API_KEY: z.string().optional(),
   AI_MODEL: z.string().default("claude-opus-5-5"),
@@ -20,5 +22,8 @@ const schema = z.object({
 const parsed = schema.safeParse(process.env);
 if (!parsed.success) {
   throw new Error(`Invalid environment configuration: ${parsed.error.message}`);
+}
+if (parsed.data.NODE_ENV === "production" && !parsed.data.APP_ENCRYPTION_KEY && process.env.NEXT_PHASE !== "phase-production-build") {
+  throw new Error("APP_ENCRYPTION_KEY is required in production (generate with: openssl rand -base64 32).");
 }
 export const env = parsed.data;

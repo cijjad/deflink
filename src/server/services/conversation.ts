@@ -417,6 +417,21 @@ async function handleAction(prev: ConversationState, action: ClientAction): Prom
       const line = state.lines.find((l) => l.key === lineKey)!;
       line.isDemo = product.isDemo;
       line.exportControlled = product.exportControlStatus === "CONTROLLED";
+      if (state.lines.length > 1) {
+        // Reviewing a list: confirm the change and keep the list in view.
+        const open = state.lines.filter((l) => l.identification === "NEEDS_CONFIRMATION" || l.identification === "NOT_IDENTIFIED").length;
+        const lineNo = state.lines.findIndex((l) => l.key === lineKey) + 1;
+        return {
+          state: { ...state, awaiting: undefined },
+          reply: {
+            blocks: [
+              { type: "text", text: `Line ${lineNo} set to ${product.partNumber}${product.manufacturer ? ` (${product.manufacturer})` : ""}. ${open ? `${open} item${open === 1 ? "" : "s"} still need${open === 1 ? "s" : ""} attention.` : "All items are identified."}` },
+              { type: "lines", lines: state.lines },
+            ],
+            actions: [{ type: "GET_QUOTES", label: "Create RFQ", primary: true }],
+          },
+        };
+      }
       const hits = await identifyLines(state.lines, [lineKey]);
       return composeReply(state, { ...base, newKeys: [lineKey], hits });
     }

@@ -16,6 +16,9 @@ import {
 
 const FUZZY_THRESHOLD = 0.35;
 
+/** Only suppliers with an approved, unexpired business verification are presented as sources. */
+const verifiedSupplier = sql`exists (select 1 from ${supplierVerifications} v where v.organization_id = ${organizations.id} and v.level = 'BUSINESS_VERIFIED' and v.state = 'APPROVED' and (v.expires_at is null or v.expires_at > now()))`;
+
 type ProductRow = {
   id: string;
   partNumber: string;
@@ -49,7 +52,7 @@ async function sourceStats(productIds: string[]) {
     })
     .from(inventoryListings)
     .innerJoin(organizations, eq(organizations.id, inventoryListings.supplierOrgId))
-    .where(and(inArray(inventoryListings.productId, productIds), eq(organizations.isSuspended, false)))
+    .where(and(inArray(inventoryListings.productId, productIds), eq(organizations.isSuspended, false), verifiedSupplier))
     .groupBy(inventoryListings.productId);
   return new Map(rows.map((r) => [r.productId, { sources: r.sources, available: r.available }]));
 }
@@ -227,7 +230,7 @@ export async function productSources(productId: string, region?: string): Promis
     .leftJoin(supplierProfiles, eq(supplierProfiles.organizationId, organizations.id))
     .innerJoin(products, eq(products.id, inventoryListings.productId))
     .leftJoin(manufacturers, eq(manufacturers.id, products.manufacturerId))
-    .where(and(eq(inventoryListings.productId, productId), eq(organizations.isSuspended, false)));
+    .where(and(eq(inventoryListings.productId, productId), eq(organizations.isSuspended, false), verifiedSupplier));
   let filtered = rows;
   if (region) {
     const countries = REGIONS[region] ?? [region.toUpperCase()];

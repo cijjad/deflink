@@ -45,3 +45,5 @@ next-env.d.ts
 .storage/
 /test-results/
 /playwright-report/
+/.next-e2e/
+/.storage-test/

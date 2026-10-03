@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
+@theme {
+  --color-navy-950: #08111f;
+  --color-navy-900: #0c1a30;
+  --color-navy-800: #132744;
+  --color-navy-700: #1b365e;
+  --color-navy-600: #26487a;
+  --color-accent-600: #2457c5;
+  --color-accent-500: #2f6bea;
+  --color-accent-100: #e6eefc;
+  --color-accent-50: #f2f6fd;
+  --color-graphite-900: #1d2129;
+  --color-graphite-700: #3a404b;
+  --color-graphite-500: #646b78;
+  --color-graphite-400: #8a919d;
+  --color-graphite-300: #b7bcc5;
+  --color-graphite-200: #dde0e6;
+  --color-graphite-100: #eceef2;
+  --color-graphite-50: #f6f7f9;
+  --color-ok-600: #1f7a4d;
+  --color-ok-50: #eaf6ef;
+  --color-warn-600: #9a5b00;
+  --color-warn-50: #fdf5e6;
+  --color-danger-600: #b42318;
+  --color-danger-50: #fdeceb;
+  --font-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-graphite-50);
+  color: var(--color-graphite-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Reusable primitives */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 disabled:cursor-not-allowed disabled:opacity-50 min-h-11;
+}
+
+@utility btn-primary {
+  @apply btn bg-navy-800 text-white hover:bg-navy-700;
+}
+
+@utility btn-accent {
+  @apply btn bg-accent-600 text-white hover:bg-accent-500;
+}
+
+@utility btn-secondary {
+  @apply btn border border-graphite-200 bg-white text-graphite-900 hover:border-graphite-300 hover:bg-graphite-50;
+}
+
+@utility btn-ghost {
+  @apply btn text-graphite-700 hover:bg-graphite-100;
+}
+
+@utility card {
+  @apply rounded-xl border border-graphite-200 bg-white;
+}
+
+@utility input {
+  @apply w-full rounded-lg border border-graphite-200 bg-white px-3 py-2.5 text-base text-graphite-900 placeholder:text-graphite-400 focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-100 sm:text-sm min-h-11;
+}
+
+@utility label {
+  @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-graphite-500;
+}
+
+@utility chip {
+  @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide;
+}
+
+@utility table-base {
+  @apply w-full text-left text-sm;
+  & th {
+  @apply border-b border-graphite-200 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-graphite-500;
+  }
+  & td {
+  @apply border-b border-graphite-100 px-3 py-2.5 align-top;
+  }
 }
