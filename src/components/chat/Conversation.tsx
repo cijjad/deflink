@@ -306,7 +306,7 @@ export function Conversation({ signedIn, orgKind, resumeId, autoSubmit }: Props)
             send(input);
           }
         }}
-        placeholder={placeholder ?? (started ? "Reply, or ask anything…" : "Part number, OEM, or describe what you need…")}
+        placeholder={placeholder ?? (started ? "Reply, or ask anything…" : "Part number, OEM or item…")}
         aria-label="What do you need?"
         data-testid="chat-input"
         className={`max-h-40 min-h-11 flex-1 resize-none bg-transparent px-1 py-2.5 text-base text-graphite-900 placeholder:text-graphite-400 focus:outline-none ${started ? "" : "sm:text-lg"}`}

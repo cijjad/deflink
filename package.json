@@ -1,6 +1,6 @@
 {
   "name": "deflink",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +13,8 @@
     "db:seed": "tsx scripts/seed.ts",
     "db:reset": "tsx scripts/reset-db.ts && tsx scripts/migrate.ts && tsx scripts/seed.ts",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "preview:build": "node scripts/build-preview.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",

@@ -24,9 +24,13 @@ npm test          # parser unit tests + service integration tests (uses deflink_
 npm run test:e2e  # the three success tests in Chromium, desktop and mobile viewports
 ```
 
+## See it
+Interactive preview (DEMO data, runs in the browser): `npm run preview:build` → open `preview/dist/deflink-preview.html`.
+
 ## Docs
 - [Architecture & implementation plan](docs/ARCHITECTURE.md)
 - [Deployment, operations and known gaps](docs/DEPLOYMENT.md)
+- [Changelog](CHANGELOG.md)
 
 ## Layout
 ```

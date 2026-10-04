@@ -1,0 +1,102 @@
+[
+ {
+  "partNumber": "ABC123",
+  "description": "Hydraulic pump",
+  "quantity": 25
+ },
+ {
+  "partNumber": "HP-4521",
+  "description": "Hydraulic pump",
+  "quantity": 4
+ },
+ {
+  "partNumber": "FLT-200-10",
+  "description": "Filter element",
+  "quantity": 120
+ },
+ {
+  "partNumber": "FLT-300-25",
+  "description": "Oil filter",
+  "quantity": 60
+ },
+ {
+  "partNumber": "LF-AIR-900",
+  "description": "Air filter",
+  "quantity": 30
+ },
+ {
+  "partNumber": "LF-FUEL-45",
+  "description": "Fuel filter",
+  "quantity": 40
+ },
+ {
+  "partNumber": "BRG-6205-DMO",
+  "description": "Ball bearing",
+  "quantity": 200
+ },
+ {
+  "partNumber": "BRG-6308-DMO",
+  "description": "Ball bearing",
+  "quantity": 150
+ },
+ {
+  "partNumber": "BRG-22210-DMO",
+  "description": "Roller bearing",
+  "quantity": 20
+ },
+ {
+  "partNumber": "KM-GBX-40",
+  "description": "Gearbox",
+  "quantity": 2
+ },
+ {
+  "partNumber": "KM-BLT-1200",
+  "description": "V-belt",
+  "quantity": 80
+ },
+ {
+  "partNumber": "MFP-CYL-63",
+  "description": "Hydraulic cylinder",
+  "quantity": 6
+ },
+ {
+  "partNumber": "MFP-HOSE-12",
+  "description": "Hose assembly",
+  "quantity": 30
+ },
+ {
+  "partNumber": "MFP-SV-24",
+  "description": "Solenoid valve",
+  "quantity": 12
+ },
+ {
+  "partNumber": "NS-ORK-112",
+  "description": "O-ring kit",
+  "quantity": 10
+ },
+ {
+  "partNumber": "NS-SEAL-75",
+  "description": "Shaft seal",
+  "quantity": 50
+ },
+ {
+  "partNumber": "OA-SNS-310",
+  "description": "Pressure sensor",
+  "quantity": 8
+ },
+ {
+  "partNumber": "OA-CON-29",
+  "description": "Connector",
+  "quantity": 4
+ },
+ {
+  "partNumber": "NS-GSK-405",
+  "description": "Gasket",
+  "quantity": 2
+ },
+ {
+  "partNumber": "QQQ-0000-ZZ",
+  "description": "Widget",
+  "quantity": 1
+ }
+]
